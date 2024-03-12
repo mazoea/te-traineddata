@@ -3,6 +3,7 @@
 # version: 1.0
 #
 #
+import os
 import unittest
 #noinspection PyUnresolvedReferences
 import testhelpers
@@ -17,7 +18,8 @@ class Testutils( testhelpers.test_case ):
 
     def test_basic(self):
         """ test_basic """
-        file_str, exists = testhelpers.files.in_data_dir("3.0/yid.traineddata")
+        # file_str, exists = testhelpers.files.in_data_dir("3.0/yid.traineddata")
+        file_str, exists = testhelpers.files.in_data_dir("3.0/maz.traineddata")
         self.assertTrue(exists)
         t = tessdata.traineddata(file_str)
         t.info()
@@ -49,10 +51,10 @@ class Testutils( testhelpers.test_case ):
             if part.name == normproto.name:
                 self.handle_normproto(part, text_arr, images_arr)
             if part.name == inttemp.name:
-                self.handle_inttemp(part, text_arr, images_arr)
+                self.handle_inttemp(t, part, text_arr, images_arr)
 
 
-    def handle_inttemp(self, part, text_arr, images_arr):
+    def handle_inttemp(self, t, part, text_arr, images_arr):
         first_n_images = 100
         import unicodedata
         import base64
@@ -66,7 +68,7 @@ class Testutils( testhelpers.test_case ):
             name = u".".join([unicodedata.name(x) for x in c])
             buf = io.BytesIO()
             im.save(buf, 'png')
-            im.save(f"{i}.png")
+            im.save(f"{os.path.basename(t.input)}.{i}.png")
             img_data_base64 = base64.b64encode(buf.getvalue())
             images_arr.append("%s?%s" % (name, img_data_base64))
 

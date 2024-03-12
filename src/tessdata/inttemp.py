@@ -308,6 +308,11 @@ class inttemp(base):
             s = "Expected features [%d]" % self.uniset[
                 i].get("expected_features", -1)
             draw.text((10, font_size * 2), s, (0, 0, 0), font=font)
+            try:
+                s = f"Char: [{c}]"
+                draw.text((10, font_size * 3), s, (0, 0, 0), font=font)
+            except:
+                pass
 
             if success:
                 try:
