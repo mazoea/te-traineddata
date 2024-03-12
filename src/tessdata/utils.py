@@ -13,4 +13,7 @@ _logger = logging.getLogger("tessdata")
 
 
 def u_from_utf8(utf8_text):
-    return utf8_text.decode("utf-8")
+    try:
+        return utf8_text.decode("utf-8")
+    except:
+        return utf8_text

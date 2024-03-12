@@ -23,7 +23,7 @@ class normproto(base):
         }
 
     def load(self, fin, start, end, parts):
-        lines = [x for x in fin.readlines(start, end)]
+        lines = [x.decode("utf-8") for x in fin.readlines(start, end)]
         pos = 0
         params_size = -1
         uniset = parts.get(unicharset.name)

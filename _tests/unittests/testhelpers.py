@@ -123,7 +123,7 @@ class files( object ):
         """
         os.chdir( os.path.join( testsettings.settings["start_dir"],
                                 testsettings.settings["path_to_project"] ) )
-        print "Changing to " + os.getcwd( )
+        print("Changing to " + os.getcwd( ))
         pass
 
     @staticmethod
@@ -146,13 +146,13 @@ class output( object ):
     @staticmethod
     def test(msg_str):
         """ Output with indentation. """
-        print "\n", 40 * "="
-        print msg_str
+        print( "\n", 40 * "=")
+        print(msg_str)
 
     @staticmethod
     def out(msg_str):
         """ Output with indentation. """
-        print "\t" + msg_str
+        print("\t" + msg_str)
 
 
 #

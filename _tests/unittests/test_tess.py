@@ -31,7 +31,7 @@ class Testutils( testhelpers.test_case ):
 
         def progress_ftor(part, pos, parts):
             progress = status.progress + (progress_sum_parsing / (len(parts) - pos))
-            print progress
+            print(progress)
 
         def warning_ftor(msg, *args):
             data["warnings"].append(msg % args)
@@ -51,6 +51,7 @@ class Testutils( testhelpers.test_case ):
             if part.name == inttemp.name:
                 self.handle_inttemp(part, text_arr, images_arr)
 
+
     def handle_inttemp(self, part, text_arr, images_arr):
         first_n_images = 100
         import unicodedata
@@ -65,6 +66,7 @@ class Testutils( testhelpers.test_case ):
             name = u".".join([unicodedata.name(x) for x in c])
             buf = io.BytesIO()
             im.save(buf, 'png')
+            im.save(f"{i}.png")
             img_data_base64 = base64.b64encode(buf.getvalue())
             images_arr.append("%s?%s" % (name, img_data_base64))
 

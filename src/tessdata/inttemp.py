@@ -273,7 +273,7 @@ class inttemp(base):
             c = self.u(self.uniset[i]["char"])
 
             im = Image.frombytes(
-                'RGB', im_size, "\xff\xff\xff" * im_size[0] * im_size[1])
+                'RGB', im_size, b"\xff\xff\xff" * im_size[0] * im_size[1])
             draw = ImageDraw.Draw(im)
 
             success = False
@@ -312,7 +312,7 @@ class inttemp(base):
             if success:
                 try:
                     yield (c, im, draw)
-                except Exception, e:
+                except Exception as e:
                     self.logger.info(
                         u"not showing prototype %s - %s", c, repr(e))
             else:
@@ -337,10 +337,10 @@ class inttemp(base):
             return 1 << PPrunerBitIndexFor(pid)
 
         def get_pruner_word_index(pid):
-            return (pid % tesseract.PROTOS_PER_PROTO_SET) \
-                / tesseract.PROTOS_PER_PP_WERD
+            return int((pid % tesseract.PROTOS_PER_PROTO_SET) / tesseract.PROTOS_PER_PP_WERD)
 
-        proto_set = cls["protosets"][get_proto_set(proto_id)]
+        idx = int(get_proto_set(proto_id))
+        proto_set = cls["protosets"][idx]
         protos = proto_set["protos"]
         if 0 == len(protos):
             return False
@@ -363,9 +363,8 @@ class inttemp(base):
         Xmax = Ymax = 0
 
         def get_proto_pruner(proto_pruner, x, y, z):
-            return proto_pruner[x * tesseract.NUM_PP_BUCKETS * tesseract.WERDS_PER_PP_VECTOR
-                                + y * tesseract.WERDS_PER_PP_VECTOR
-                                + z]
+            idx = x * tesseract.NUM_PP_BUCKETS * tesseract.WERDS_PER_PP_VECTOR + y * tesseract.WERDS_PER_PP_VECTOR + z
+            return proto_pruner[idx]
 
         proto_pruner = proto_set["pruners"]
         for i in range(tesseract.NUM_PP_BUCKETS):

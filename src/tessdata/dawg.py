@@ -45,7 +45,7 @@ class dawg(base):
             ftor(u"%7d. %s" % (i, w))
         try:
             self.iter_words(print_max)
-        except BaseException, e:
+        except BaseException as e:
             ftor("...printing the first %d entries only..." % max_to_print)
             pass
 
@@ -66,7 +66,7 @@ class dawg(base):
     def save(self, out):
         words = set()
         self.iter_words(lambda i, w: words.add(w))
-        words = sorted(sorted(words), key=unicode.lower)
+        words = sorted(sorted(words), key=str.lower)
         with codecs.open(out, mode="w+", encoding="utf-8") as fout:
             fout.write("\n".join(words))
 

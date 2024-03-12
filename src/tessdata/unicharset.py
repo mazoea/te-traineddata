@@ -64,6 +64,7 @@ class unicharset(base):
             }
 
             # strip comment
+            line = line.decode("utf-8")
             if -1 != line[2:].find('#'):
                 hash_pos = line.find('#', 3)
                 unichar["comment"] = line[hash_pos + 1:].strip()
@@ -196,12 +197,13 @@ class unicharset(base):
         return char in self._v
 
     def __getitem__(self, idx):
-        if isinstance(idx, basestring):
+        if isinstance(idx, str):
             if "NULL" == idx:
                 idx = " "
             return self._v[idx]
         else:
-            return self._v.values()[idx]
+            arr = list(self._v.values())
+            return arr[idx]
 
     def __len__(self):
         return len(self._v)

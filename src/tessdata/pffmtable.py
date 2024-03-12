@@ -39,15 +39,17 @@ class pffmtable(base):
             start = -1
 
         for pos, line in enumerate(fin.readlines(start, end)):
+            line = line.decode("utf-8")
             pos = line.rfind(" ")
             cls = line[:pos].strip()
-            cutoff = int(line[pos:].strip())
+            int_s = line[pos:].strip()
+            cutoff = int(int_s)
             self._v[cls] = cutoff
             uniset[cls]["expected_features"] = cutoff
 
     def info(self, ftor, **kwargs):
         ftor(u"expected features count:")
-        for m in [u"[%2s] %4d" % (self.u(k), v) for k, v in self._v.iteritems()]:
+        for m in [u"[%2s] %4d" % (self.u(k), v) for k, v in self._v.items()]:
             ftor(m)
 
     def present(self):

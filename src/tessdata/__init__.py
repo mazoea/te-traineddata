@@ -24,7 +24,7 @@ from .pffmtable import pffmtable
 from .normproto import normproto
 from .dawg import dawg
 from .base import base
-from _filereader import reader
+from ._filereader import reader
 from .lstm import lstm
 from .version import version
 
@@ -119,7 +119,7 @@ class traineddata(object):
                     fin.seek(start)
                     try:
                         part.load(fin, start, end, self)
-                    except Exception, e:
+                    except Exception as e:
                         import traceback
                         tb = traceback.format_exc()
                         raise e
